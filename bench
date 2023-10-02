@@ -79,7 +79,7 @@ SYNTH_BENCHMARKS="equal bv2string"
 
 ALL_BENCHMARKS="$GABRIEL_BENCHMARKS $NUM_BENCHMARKS $KVW_BENCHMARKS $IO_BENCHMARKS $OTHER_BENCHMARKS $GC_BENCHMARKS $SYNTH_BENCHMARKS"
 
-ALL_SYSTEMS="bigloo bones chez chibi chicken5 chicken5csi cyclone femtolisp foment gambitc gauche gerbil guile guile3 ironscheme kawa larceny loko mit owllisp petite picrin racket rhizome rscheme s7 s9fes sagittarius scheme48 stklos vicare ypsilon" #  chicken4 chicken4csi
+ALL_SYSTEMS="bigloo bones chez chibi chicken5 chicken5csi cyclone femtolisp foment gambitc gauche gerbil guile guile3 ironscheme kawa larceny loko mit owllisp petite picrin racket rhizome rscheme s7 s9fes sagittarius scheme48 stklos vicare ypsilon hawk" #  chicken4 chicken4csi
 ################################################################
 
 NB_RUNS=1
@@ -106,14 +106,14 @@ setup ()
 
     # For both Solaris and Linux machines.
 
-    BIGLOO=${BIGLOO:-"bigloo"}
+    BIGLOO=${BIGLOO:-"/opt/hop/bin/bigloo"}
     BONES=${BONES:-"bones"}
-    CHEZ=${CHEZ:-"chez-scheme"}
+    CHEZ=${CHEZ:-"chezscheme"}
     CHIBI=${CHIBI:-"chibi-scheme"}
     CHICKEN4_CSC=${CHICKEN4_CSC:-"chicken-csc"}
     CHICKEN4_CSI=${CHICKEN4_CSI:-"chicken-csi"}
-    CHICKEN5_CSC=${CHICKEN5_CSC:-"chicken-csc"}
-    CHICKEN5_CSI=${CHICKEN5_CSI:-"chicken-csi"}
+    CHICKEN5_CSC=${CHICKEN5_CSC:-"csc"}
+    CHICKEN5_CSI=${CHICKEN5_CSI:-"csi"}
     CYCLONE=${CYCLONE:-"cyclone"}
     FEMTOLISP=${FEMTOLISP:-"flisp"}
     FOMENT=${FOMENT:-"foment"}
@@ -150,6 +150,7 @@ setup ()
     SISC=${SISC:-"sisc"}
     STALIN=${STALIN:-"chicken-stalin"}
     STKLOS=${STKLOS:-"stklos"}
+    HAWK=${HAWK:-"/home/davejwatson/myprojects/hawk/src/hawk"}
     TINYSCHEME=${TINYSCHEME:-"tinyscheme"}
     VICARE=${VICARE:-"vicare"}
     YPSILON=${YPSILON:-"ypsilon"}
@@ -203,6 +204,7 @@ Usage: bench [-r runs] <system> <benchmark>
   sisc             for SISC (Second Implementation of Scheme)
   stalin           for Stalin
   stklos           for STklos
+  hawk		   for Hawk
   tinyscheme       for TinyScheme
   vicare           for Vicare
   ypsilon          for Ypsilon
@@ -386,7 +388,7 @@ chicken5_comp ()
 
 chicken5_exec ()
 {
-    time "$1" < "$2"
+    /usr/bin/time -v "$1" < "$2"
 }
 
 # -----------------------------------------------------------------------------
@@ -615,6 +617,22 @@ bones_exec ()
 }
 
 # -----------------------------------------------------------------------------
+# Definitions specific to hawk
+
+hawk_comp ()
+{
+    sed -i -e 's/^(import (scheme.*)$//g' $1
+    ${HAWK} --list $1 > /dev/null
+}
+
+hawk_exec ()
+{
+    # remove import statement
+    /usr/bin/time -v  ${HAWK}        "$1".bc < "$2"  
+}
+
+
+# -----------------------------------------------------------------------------
 # Definitions specific to Vicare
 
 vicare_comp ()
@@ -694,8 +712,8 @@ chez_comp ()
 chez_exec ()
 {
     # remove import statement
-    # sed -i -e 's/^(import (scheme.*)$//g' $1
-    time "${CHEZ}" --optimize-level 2 --compile-imported-libraries --libdirs /home/nex/scheme/chez --program "$1" < "$2"
+    sed -i -e 's/^(import (scheme.*)$//g' $1
+    /usr/bin/time -v  "${CHEZ}" --optimize-level 2 --compile-imported-libraries --libdirs /home/davejwatson/projects/chez-srfi --program   "$1" < "$2"
 }
 
 # -----------------------------------------------------------------------------
@@ -723,7 +741,7 @@ mit_comp ()
 
 mit_exec ()
 {
-    time ${MIT} --quiet --heap 500000 --load "$1" < "$2"
+    /usr/bin/time -v ${MIT} --quiet --heap 500000 --load "$1" < "$2"
 }
 
 # -----------------------------------------------------------------------------
@@ -736,7 +754,7 @@ guile_comp ()
 
 guile_exec ()
 {
-    time ${GUILE} "$1" < "$2"
+    /usr/bin/time -v ${GUILE} "$1" < "$2"
 }
 
 # -----------------------------------------------------------------------------
@@ -759,12 +777,12 @@ gambitc_comp ()
 {
     # remove import statement
     sed -i -e 's/^(import (scheme.*)$//g' $1
-    ${GAMBITC} -o $2 -exe $1
+    gsc -o $2 -exe $1
 }
 
 gambitc_exec ()
 {
-    time "$1" < "$2"
+    /usr/bin/time -v "$1" < "$2"
 }
 
 # -----------------------------------------------------------------------------
@@ -925,7 +943,7 @@ loko_comp ()
 
 loko_exec ()
 {
-    time "$1" < "$2"
+    /usr/bin/time -v "$1" < "$2"
 }
 # -----------------------------------------------------------------------------
 
@@ -1170,6 +1188,16 @@ for system in $systems ; do
                COMPCOMMANDS=""
                EXECCOMMANDS=""
                ;;
+
+        hawk) NAME='Hawk'
+                COMP=hawk_comp
+                EXEC=hawk_exec
+                COMPOPTS=""
+                EXTENSION="scm"
+                EXTENSIONCOMP="scm"
+                COMPCOMMANDS=""
+                EXECCOMMANDS=""
+                ;;
 
         vicare) NAME='Vicare'
                 COMP=vicare_comp
