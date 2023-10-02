@@ -7,7 +7,7 @@
 
   (define (helper left right)
     (if (< left right)
-        (let ((median (partition v left right less?)))
+        (let ((median (partition2 v left right less?)))
           (if (< (- median left) (- right median))
               (begin (helper left (- median 1))
                      (helper (+ median 1) right))
@@ -18,7 +18,7 @@
   (helper 0 (- (vector-length v) 1)))
 
 
-(define (partition v left right less?)
+(define (partition2 v left right less?)
   (let ((mid (vector-ref v right)))
 
     (define (uploop i)
