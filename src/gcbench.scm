@@ -73,13 +73,23 @@
     ;; They're just to take up space, so this will be comparable
     ;; to the Java original.
 
-    (define-record-type classNode
-      (make-node-raw left right i j)
-      classNode?
-      (left  node.left  node.left-set!)
-      (right node.right node.right-set!)
-      (i     node.i     node.i-set!)
-      (j     node.j     node.j-set!))
+    ;; (define-record-type classNode
+    ;;   (make-node-raw left right i j)
+    ;;   classNode?
+    ;;   (left  node.left  node.left-set!)
+    ;;   (right node.right node.right-set!)
+    ;;   (i     node.i     node.i-set!)
+    ;;   (j     node.j     node.j-set!))
+    (define (make-node-raw a b c d)
+      (vector a b c d))
+    (define (node.left v)
+      (vector-ref v 0))
+    (define (node.right v)
+      (vector-ref v 1))
+    (define (node.left-set! v obj)
+      (vector-set! v 0 obj))
+    (define (node.right-set! v obj)
+      (vector-set! v 1 obj))
 
     (let ((make-empty-node (lambda () (make-node-raw 0 0 0 0)))
 	  (make-node (lambda (l r) (make-node-raw l r 0 0))))
@@ -149,10 +159,10 @@
                        (number->string kArraySize)
                        " inexact reals"))
              (newline)
-             (let ((array (make-vector kArraySize 0.0)))
+             (let ((array (make-vector kArraySize 0)))
                (do ((i 0 (+ i 1)))
                    ((>= i (quotient kArraySize 2)))
-                 (vector-set! array i (/ 1.0 (inexact (+ i 1)))))
+                 (vector-set! array i (/ 1 (+ i 1))))
                (PrintDiagnostics)
 
                (do ((d kMinTreeDepth (+ d 2)))
@@ -165,7 +175,7 @@
                                                   2)
                                         1))))
                          (not (= (vector-ref array n)
-                                 (/ 1.0 (inexact (+ n 1)))))))
+                                 (/ 1 (+ n 1))))))
                    (begin (display "Failed") (newline)))
                ;;  fake reference to LongLivedTree
                ;;  and array
