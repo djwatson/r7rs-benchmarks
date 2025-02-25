@@ -79,7 +79,7 @@ SYNTH_BENCHMARKS="equal bv2string"
 
 ALL_BENCHMARKS="$GABRIEL_BENCHMARKS $NUM_BENCHMARKS $KVW_BENCHMARKS $IO_BENCHMARKS $OTHER_BENCHMARKS $GC_BENCHMARKS $SYNTH_BENCHMARKS"
 
-ALL_SYSTEMS="bigloo bones chez chibi chicken5 chicken5csi cyclone femtolisp foment gambitc gauche gerbil guile guile3 ironscheme kawa larceny loko mit owllisp petite picrin racket rhizome rscheme s7 s9fes sagittarius scheme48 stklos vicare ypsilon hawk" #  chicken4 chicken4csi
+ALL_SYSTEMS="bigloo bones callcc chez chibi chicken5 chicken5csi cyclone femtolisp foment gambitc gauche gerbil guile guile3 ironscheme kawa larceny loko mit owllisp petite picrin racket rhizome rscheme s7 s9fes sagittarius scheme48 stklos vicare ypsilon hawk" #  chicken4 chicken4csi
 ################################################################
 
 NB_RUNS=1
@@ -105,7 +105,7 @@ setup ()
     esac
 
     # For both Solaris and Linux machines.
-
+    CALLCC=${CALLCC:-"callcc"}
     BIGLOO=${BIGLOO:-"/opt/hop/bin/bigloo"}
     BONES=${BONES:-"bones"}
     CHEZ=${CHEZ:-"chezscheme"}
@@ -129,7 +129,7 @@ setup ()
     IRONSCHEME=${IRONSCHEME:-"ironscheme"}
     KAWA=${KAWA:-"kawa"}
     KAWAJAR=${KAWAJAR:-/usr/share/kawa/lib/kawa.jar}
-    LARCENY=${LARCENY:-"larceny"}
+    LARCENY=${LARCENY:-"/home/davejwatson/projects/larceny/larceny-1.3-bin-native-ia32-linux86/larceny"}
     LOKO=${LOKO:-"loko"}
     MIT=${MIT:-"mit-scheme"}
     MOSH=${MOSH:-"mosh-scheme"}
@@ -145,10 +145,10 @@ setup ()
     RHIZOME_PISL=${RHIZOME_PISL:-"pisl"}
     SAGITTARIUS=${SAGITTARIUS:-"sagittarius"}
     SCHEME48=${SCHEME48:-"scheme48"}
-    S7=${S7:-"s7"}
+    S7=${S7:-"/home/davejwatson/projects/s7/s7"}
     S9fES=${S9fES:-"s9"}
     SISC=${SISC:-"sisc"}
-    STALIN=${STALIN:-"chicken-stalin"}
+    STALIN=${STALIN:-"stalin"}
     STKLOS=${STKLOS:-"stklos"}
     HAWK=${HAWK:-"/home/davejwatson/myprojects/hawk/src/hawk"}
     TINYSCHEME=${TINYSCHEME:-"tinyscheme"}
@@ -171,6 +171,7 @@ Usage: bench [-r runs] <system> <benchmark>
   bigloo           for Bigloo
   bones            for Bones
   chez             for Chez Scheme
+  callcc             for callcc
   chibi            for Chibi
   chicken4         for Chicken 4 (compiled)
   chicken4csi      for Chicken 4 (interpreted)
@@ -438,9 +439,9 @@ stalin_comp ()
     # run through alexpander first
     expanded=${1%%scm}exp
     echo "(print-brackets #f) (alexpander-repl)" | cat - $1 | sponge $1
-    chez-scheme -q src/alexpander.scm < $1 > $expanded
-    # ${STALIN} -On -Ob -Om -Or -Ot -d -d1 -k -copt -O3 $expanded
-    echo "(load \"/home/nex/scheme/chez/stalin/stalin.scm\") (load \"/home/nex/scheme/chez/stalin/stalin.scm\") (test \"$expanded\")" | chez-scheme -q 
+    chezscheme -q src/alexpander.scm < $1 > $expanded
+     ${STALIN} -On -Ob -Om -Or -Ot -d -d1 -k -copt -O3 $expanded
+    #echo "(load \"/home/nex/scheme/chez/stalin/stalin.scm\") (load \"/home/nex/scheme/chez/stalin/stalin.scm\") (test \"$expanded\")" | chezscheme -q 
 }
 
 stalin_exec ()
@@ -628,7 +629,7 @@ hawk_comp ()
 hawk_exec ()
 {
     # remove import statement
-    /usr/bin/time -v  ${HAWK}        "$1".bc < "$2"  
+    time   ${HAWK}        "$1".bc < "$2"  
 }
 
 
@@ -713,7 +714,25 @@ chez_exec ()
 {
     # remove import statement
     sed -i -e 's/^(import (scheme.*)$//g' $1
-    /usr/bin/time -v  "${CHEZ}" --optimize-level 2 --compile-imported-libraries --libdirs /home/davejwatson/projects/chez-srfi --program   "$1" < "$2"
+    "${CHEZ}" --optimize-level 2 --compile-imported-libraries --libdirs /home/davejwatson/projects/chez-srfi --program   "$1" < "$2"
+}
+
+# -----------------------------------------------------------------------------
+# Definitions specific to callcc
+
+callcc_comp ()
+{
+    :
+}
+
+callcc_exec ()
+{
+    ${CALLCC} -fno-eval --cc "-fprofile-generate -flto -O3 -g" --exe $1 -o $1.exe 2> /dev/null
+    LLVM_PROFILE_FILE=a.profraw $1.exe < "$2"
+    llvm-profdata merge -output=a.profdata a.profraw
+    ${CALLCC} -fno-eval --cc "-fprofile-use=a.profdata -flto -O3 -g" --exe $1 -o $1.exe 2> /dev/null
+    # ${CALLCC} -fno-eval --cc "-flto -O3 -g" --exe $1 -o $1.exe 2> /dev/null
+    $1.exe  < "$2"
 }
 
 # -----------------------------------------------------------------------------
@@ -1265,6 +1284,16 @@ for system in $systems ; do
                  COMPOPTS=""
                  EXTENSION="scm"
                  EXTENSIONCOMP="exe"
+                 COMPCOMMANDS=""
+                 EXECCOMMANDS=""
+                 ;;
+
+        callcc) NAME='Callcc'
+                 COMP=callcc_comp
+                 EXEC=callcc_exec
+                 COMPOPTS=""
+                 EXTENSION="scm"
+                 EXTENSIONCOMP="scm"
                  COMPCOMMANDS=""
                  EXECCOMMANDS=""
                  ;;
