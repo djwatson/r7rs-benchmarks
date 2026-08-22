@@ -121,6 +121,7 @@ setup ()
     GXC=${GXC:-"gxc"}
     GUILD=${GUILD:-"guild"}
     GUILE=${GUILE:-"guile"}
+    HAWK=${HAWK:-"hawk"}
     HUSKI=${HUSKI:-"huski"}
     JAVA=${JAVA:-"java"}
     IRONSCHEME=${IRONSCHEME:-"ironscheme"}
@@ -177,6 +178,7 @@ Usage: bench [-r runs] <system> <benchmark>
   gauche           for Gauche
   gerbil           for Gerbil Scheme
   guile            for Guile Scheme
+  hawk             for Hawk
   husk             for Husk
   ironscheme       for IronScheme
   kawa             for Kawa
@@ -343,6 +345,19 @@ henchman_comp ()
 henchman_exec ()
 {
     time "${HENCHMAN}" --nocontract --r7rs --program "$1" < "$2"
+}
+
+# -----------------------------------------------------------------------------
+# Definitions specific to Hawk
+
+hawk_comp ()
+{
+    :
+}
+
+hawk_exec ()
+{
+    time "${HAWK}" "$1" < "$2"
 }
 
 # -----------------------------------------------------------------------------
@@ -1138,6 +1153,13 @@ for system in $systems ; do
                EXTENSION="scm"
                EXTENSIONCOMP="scm"
                ;;
+
+        hawk) NAME='Hawk'
+              COMP=hawk_comp
+              EXEC=hawk_exec
+              EXTENSION="scm"
+              EXTENSIONCOMP="scm"
+              ;;
 
         mit) NAME='MIT'
              COMP=mit_comp
