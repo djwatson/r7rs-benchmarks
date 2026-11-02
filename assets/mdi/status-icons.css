@@ -1,0 +1,17 @@
+/* Material Design Icons 7.4.47, matching the original benchmark website.
+   SVGs from @mdi/svg; see LICENSE. */
+.mdi::before {
+  content: "";
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.125em;
+  background-color: currentColor;
+  -webkit-mask: var(--status-icon) center / contain no-repeat;
+  mask: var(--status-icon) center / contain no-repeat;
+}
+.mdi-cancel { --status-icon: url("cancel.svg"); }
+.mdi-lightning-bolt { --status-icon: url("lightning-bolt.svg"); }
+.mdi-timer-sand-empty { --status-icon: url("timer-sand-empty.svg"); }
+.mdi-close-circle-outline { --status-icon: url("close-circle-outline.svg"); }
+.mdi-help-circle-outline { --status-icon: url("help-circle-outline.svg"); }

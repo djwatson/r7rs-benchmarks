@@ -1,0 +1,81 @@
+{
+  "snapshot": "2026-11-02T23:26:42.480286+00:00",
+  "completed": [
+    "Chez",
+    "Hawk",
+    "Loko",
+    "GambitC",
+    "Bigloo",
+    "Stalin",
+    "Guile",
+    "MIT",
+    "S7",
+    "Larceny",
+    "Chicken",
+    "Racket"
+  ],
+  "run_complete": true,
+  "active_at_snapshot": null,
+  "results": {
+    "Chez": {
+      "passed": 57
+    },
+    "Hawk": {
+      "passed": 57
+    },
+    "Loko": {
+      "passed": 52,
+      "INCORRECT": 3,
+      "CRASHED": 2
+    },
+    "GambitC": {
+      "passed": 56,
+      "COMPILEERROR": 1
+    },
+    "Bigloo": {
+      "passed": 51,
+      "ULIMITKILLED": 2,
+      "COMPILEERROR": 2,
+      "CRASHED": 2
+    },
+    "Stalin": {
+      "passed": 32,
+      "ULIMITKILLED": 6,
+      "INCORRECT": 4,
+      "COMPILEERROR": 14,
+      "CRASHED": 1
+    },
+    "Guile": {
+      "passed": 56,
+      "ULIMITKILLED": 1
+    },
+    "MIT": {
+      "passed": 55,
+      "ULIMITKILLED": 1,
+      "COMPILEERROR": 1
+    },
+    "S7": {
+      "passed": 51,
+      "ULIMITKILLED": 1,
+      "INCORRECT": 2,
+      "NO_RESULT": 3
+    },
+    "Larceny": {
+      "passed": 57
+    },
+    "Chicken": {
+      "passed": 56,
+      "ULIMITKILLED": 1
+    },
+    "Racket": {
+      "passed": 57
+    }
+  },
+  "missing_results": {
+    "S7": [
+      "pi",
+      "dynamic",
+      "chudnovsky"
+    ]
+  }
+}
