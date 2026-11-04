@@ -14,7 +14,7 @@ Socket(s):                               1
 Stepping:                                0
 Microcode version:                       0xa20102e
 Frequency boost:                         enabled
-CPU(s) scaling MHz:                      41%
+CPU(s) scaling MHz:                      46%
 CPU max MHz:                             4954.5649
 CPU min MHz:                             567.0890
 BogoMIPS:                                7399.47
@@ -45,52 +45,52 @@ Vulnerability Tsa:                       Vulnerable
 Vulnerability Tsx async abort:           Not affected
 Vulnerability Vmscape:                   Vulnerable
 MemTotal:       15761648 kB
-MemFree:         5599928 kB
-MemAvailable:   11644048 kB
-Buffers:          154412 kB
-Cached:          5843328 kB
-SwapCached:          736 kB
-Active:          2242060 kB
-Inactive:        6306424 kB
-Active(anon):    1359148 kB
-Inactive(anon):  1295852 kB
-Active(file):     882912 kB
-Inactive(file):  5010572 kB
-Unevictable:         336 kB
-Mlocked:             336 kB
+MemFree:         6544104 kB
+MemAvailable:   11007144 kB
+Buffers:          854124 kB
+Cached:          3077816 kB
+SwapCached:        13220 kB
+Active:          2914856 kB
+Inactive:        3966852 kB
+Active(anon):    1044660 kB
+Inactive(anon):  2025688 kB
+Active(file):    1870196 kB
+Inactive(file):  1941164 kB
+Unevictable:         232 kB
+Mlocked:             232 kB
 SwapTotal:       2097148 kB
-SwapFree:        2096156 kB
+SwapFree:        1960664 kB
 Zswap:                 0 kB
 Zswapped:              0 kB
-Dirty:              7288 kB
+Dirty:             10424 kB
 Writeback:             0 kB
-AnonPages:       2551316 kB
-Mapped:          1399176 kB
-Shmem:            104544 kB
-KReclaimable:     488268 kB
-Slab:             855804 kB
-SReclaimable:     488268 kB
-SUnreclaim:       367536 kB
-KernelStack:       25252 kB
-PageTables:        56024 kB
-SecPageTables:      4616 kB
+AnonPages:       2937296 kB
+Mapped:          1487144 kB
+Shmem:            120780 kB
+KReclaimable:     989312 kB
+Slab:            1438964 kB
+SReclaimable:     989312 kB
+SUnreclaim:       449652 kB
+KernelStack:       29312 kB
+PageTables:        69836 kB
+SecPageTables:      4760 kB
 NFS_Unstable:          0 kB
 Bounce:                0 kB
 WritebackTmp:          0 kB
 CommitLimit:     9977972 kB
-Committed_AS:   19709708 kB
+Committed_AS:   25174308 kB
 VmallocTotal:   34359738367 kB
-VmallocUsed:      233436 kB
+VmallocUsed:      233828 kB
 VmallocChunk:          0 kB
-Percpu:            32544 kB
+Percpu:            34080 kB
 HardwareCorrupted:     0 kB
 AnonHugePages:         0 kB
 ShmemHugePages:        0 kB
 ShmemPmdMapped:        0 kB
-FileHugePages:     36864 kB
+FileHugePages:      4096 kB
 FilePmdMapped:         0 kB
 CmaTotal:              0 kB
-CmaFree:         1801056 kB
+CmaFree:         2069400 kB
 Unaccepted:            0 kB
 Balloon:               0 kB
 GPUActive:             0 kB
@@ -101,8 +101,8 @@ HugePages_Rsvd:        0
 HugePages_Surp:        0
 Hugepagesize:       2048 kB
 Hugetlb:               0 kB
-DirectMap4k:     1248736 kB
-DirectMap2M:    14401536 kB
+DirectMap4k:     7542240 kB
+DirectMap2M:     8108032 kB
 DirectMap1G:     1048576 kB
 
 Container limits: 6 GiB memory, two CPUs. Benchmark jobs run serially.
