@@ -1,5 +1,5 @@
 {
-  "snapshot": "2026-11-04T15:52:10.733020+00:00",
+  "snapshot": "2026-11-15T00:47:36.951171+00:00",
   "completed": [
     "Chez",
     "Hawk",
@@ -29,9 +29,8 @@
       "CRASHED": 1
     },
     "GambitC": {
-      "passed": 55,
-      "COMPILEERROR": 1,
-      "CRASHED": 1
+      "passed": 56,
+      "COMPILEERROR": 1
     },
     "Bigloo": {
       "passed": 51,
@@ -40,27 +39,25 @@
       "CRASHED": 2
     },
     "Stalin": {
-      "passed": 31,
+      "passed": 32,
       "ULIMITKILLED": 6,
       "INCORRECT": 4,
       "COMPILEERROR": 14,
-      "CRASHED": 2
+      "CRASHED": 1
     },
     "Guile": {
       "passed": 56,
       "ULIMITKILLED": 1
     },
     "MIT": {
-      "passed": 52,
-      "CRASHED": 2,
+      "passed": 55,
       "ULIMITKILLED": 1,
-      "COMPILEERROR": 2
+      "COMPILEERROR": 1
     },
     "S7": {
-      "passed": 50,
+      "passed": 51,
       "ULIMITKILLED": 1,
       "INCORRECT": 2,
-      "CRASHED": 1,
       "NO_RESULT": 3
     },
     "Larceny": {
@@ -76,19 +73,26 @@
   },
   "missing_results": {
     "S7": [
-      "pi",
+      "chudnovsky",
       "dynamic",
-      "chudnovsky"
+      "pi"
     ]
   },
   "hawk_variant": {
-    "kind": "release",
-    "commit": "5ccf66a4587f578301265f195cf801a166f2571a",
-    "build_type": "RelWithDebInfo",
-    "source": "/home/davejwatson/myprojects/newhawk",
-    "run_directory": "hawk-all-5ccf66a4587f",
-    "version": "0.12",
-    "tag": "v0.12"
+    "kind": "local",
+    "binary": "/home/davejwatson/myprojects/newhawk/build/hawk",
+    "execution": "Docker, copied build",
+    "run_directory": "/home/davejwatson/projects/r7rs-benchmarks/.arch-work/hawk-refresh-20261114-164520",
+    "hashes": {
+      "hawk": {
+        "sha256": "07b53a628492ace6e831783c24ec1244f69836a814037243035ab0ba59254c32",
+        "mtime": 1794700784.171432
+      },
+      "libhawk_core.so": {
+        "sha256": "a3d16f3899d75f85a2b0f524275db7a23a6556d8e1192a3c63f85e6e5979e0c2",
+        "mtime": 1794700784.1045923
+      }
+    }
   },
   "benchmark_updates": [
     {
@@ -124,6 +128,213 @@
       "results": {
         "passed": 57
       }
+    },
+    {
+      "benchmarks": [
+        "string",
+        "mbrotZ",
+        "cat",
+        "bv2string",
+        "browse",
+        "parsing",
+        "slatex"
+      ],
+      "implementations": [
+        "Hawk"
+      ],
+      "hawk_commit": "2f6eba8d8799a728d37b0500d11f552159cbaa35",
+      "finished": "Thu Nov  5 15:57:27 UTC 2026",
+      "run_directory": "hawk-seven-2f6eba8d8799",
+      "changes": [
+        {
+          "benchmark": "browse",
+          "previous": "0.553654087",
+          "new": "0.539170268"
+        },
+        {
+          "benchmark": "mbrotz",
+          "previous": "2.542419656",
+          "new": "2.552043551"
+        },
+        {
+          "benchmark": "string",
+          "previous": "0.78209899",
+          "new": "0.112662385"
+        },
+        {
+          "benchmark": "cat",
+          "previous": "0.678951958",
+          "new": "0.586492449"
+        },
+        {
+          "benchmark": "parsing",
+          "previous": "1.178327717",
+          "new": "1.238108864"
+        },
+        {
+          "benchmark": "slatex",
+          "previous": "1.378092385",
+          "new": "1.454432021"
+        },
+        {
+          "benchmark": "bv2string",
+          "previous": "0.469448175",
+          "new": "0.409674405"
+        }
+      ]
+    },
+    {
+      "benchmark": "all",
+      "implementations": [
+        "Hawk"
+      ],
+      "hawk_commit": "2f6eba8d8799a728d37b0500d11f552159cbaa35",
+      "finished": "Thu Nov  5 16:00:17 UTC 2026",
+      "run_directory": "hawk-all-2f6eba8d8799",
+      "results": {
+        "passed": 57
+      }
+    },
+    {
+      "benchmark": "all",
+      "implementations": [
+        "Hawk"
+      ],
+      "hawk_commit": "a0c91132002dd2ebaddf963f2ea2e072eb138d2f",
+      "finished": "Thu Nov  5 16:56:53 UTC 2026",
+      "run_directory": "hawk-all-a0c91132002d",
+      "results": {
+        "passed": 57
+      }
+    },
+    {
+      "benchmark": "all",
+      "implementations": [
+        "Hawk"
+      ],
+      "hawk_commit": "964a78f00222186125139727f84b6173ff6ae4a2",
+      "finished": "Thu Nov  5 22:41:34 UTC 2026",
+      "run_directory": "hawk-all-964a78f00222",
+      "results": {
+        "passed": 57
+      }
+    },
+    {
+      "benchmark": "all",
+      "implementations": [
+        "Hawk"
+      ],
+      "hawk_commit": "d45b965e89715c759830a6018bc4fac085531eee",
+      "finished": "Thu Nov  5 23:12:16 UTC 2026",
+      "run_directory": "hawk-all-d45b965e8971",
+      "results": {
+        "passed": 57
+      }
+    },
+    {
+      "benchmark": "all",
+      "implementations": [
+        "Hawk"
+      ],
+      "hawk_commit": "d5c0cc299f7b13ca725f71dc473f0cb977b8bf2f",
+      "finished": "Fri Nov  6 18:56:00 UTC 2026",
+      "run_directory": "hawk-all-d5c0cc299f7b",
+      "results": {
+        "passed": 57
+      }
+    },
+    {
+      "benchmark": "all",
+      "implementations": [
+        "Hawk"
+      ],
+      "hawk_commit": "2d7415abc2f0aef69de81f5beb1da52f4cdb51b6",
+      "finished": "Fri Nov  6 19:14:45 UTC 2026",
+      "run_directory": "hawk-all-2d7415abc2f0",
+      "results": {
+        "passed": 57
+      }
+    },
+    {
+      "benchmark": "all",
+      "implementations": [
+        "Hawk"
+      ],
+      "hawk_commit": "c44202e36ef3287d7a7a4949f574f7bf3dd6c03f",
+      "finished": "Fri Nov  6 22:07:49 UTC 2026",
+      "run_directory": "hawk-all-c44202e36ef3",
+      "results": {
+        "passed": 57
+      }
+    },
+    {
+      "benchmark": "all",
+      "implementations": [
+        "Hawk"
+      ],
+      "hawk_commit": "c1359fd72de3f4bb3f027edcf5cd14130248a514",
+      "finished": "Fri Nov  6 22:35:11 UTC 2026",
+      "run_directory": "hawk-all-c1359fd72de3",
+      "results": {
+        "passed": 57
+      }
+    },
+    {
+      "benchmark": "all",
+      "implementations": [
+        "Hawk"
+      ],
+      "run_directory": "hawk-comparison-20261113-111919",
+      "results": {
+        "passed": 57
+      },
+      "date": "2026-11-13"
+    },
+    {
+      "benchmark": "all",
+      "implementations": [
+        "Hawk"
+      ],
+      "run_directory": "hawk-all-newhawk-20261114-104230",
+      "results": {
+        "passed": 57
+      },
+      "date": "2026-11-14"
+    },
+    {
+      "benchmark": "all",
+      "implementations": [
+        "Hawk"
+      ],
+      "run_directory": ".arch-work/hawk-refresh-20261114-152518",
+      "results": {
+        "passed": 57
+      }
+    },
+    {
+      "benchmark": "all",
+      "implementations": [
+        "Hawk"
+      ],
+      "run_directory": ".arch-work/hawk-refresh-20261114-164520",
+      "results": {
+        "passed": 57
+      }
     }
-  ]
+  ],
+  "refreshed": [
+    "Chez",
+    "Hawk",
+    "Loko",
+    "GambitC",
+    "Bigloo",
+    "Stalin",
+    "Guile",
+    "MIT",
+    "S7",
+    "Larceny",
+    "Chicken",
+    "Racket"
+  ],
+  "current_run": "/home/davejwatson/projects/r7rs-benchmarks/.arch-work/full-run-20261114-105912"
 }
